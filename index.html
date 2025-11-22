@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для моей Анюточки ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #ffe6f2, #e6f2ff);
+            padding: 20px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 102, 179, 0.2);
+            position: relative;
+        }
+        .screen {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .message-box {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #ff66b3, #ff9999);
+            border-radius: 20px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border: 4px solid #ff3385;
+            padding: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            line-height: 1.4;
+        }
+        .question {
+            margin: 25px 0;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #555;
+        }
+        .btn {
+            background: linear-gradient(45deg, #ff66b3, #ff3385);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: 18px;
+            margin: 12px 8px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 180px;
+            box-shadow: 0 4px 15px rgba(255, 102, 179, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            z-index: 10;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #ff3385, #ff0066);
+            transform: scale(0.95);
+        }
+        .no-btn {
+            background: linear-gradient(45deg, #cccccc, #999999);
+            opacity: 0.7;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        .no-btn.escaping {
+            transition: all 0.1s ease !important;
+        }
+        h1 {
+            color: #ff3385;
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+        .heart {
+            font-size: 35px;
+            margin: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .no-message {
+            display: none; 
+            color: #ff3385; 
+            font-size: 16px; 
+            margin-top: 15px;
+            background: #fff0f5;
+            padding: 12px;
+            border-radius: 15px;
+            border: 2px dashed #ff66b3;
+        }
+        .cat-emoji {
+            font-size: 40px;
+            position: absolute;
+            animation: float 3s ease-in-out infinite;
+        }
+        .cat1 { top: 10px; left: 20px; animation-delay: 0s; }
+        .cat2 { bottom: 10px; right: 20px; animation-delay: 1.5s; }
+        .bear { font-size: 35px; position: absolute; top: 15px; right: 25px; }
+        .sparkles { font-size: 25px; position: absolute; bottom: 15px; left: 20px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .name {
+            color: #ff3385;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .final-emoji {
+            font-size: 40px;
+            margin-top: 15px;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            min-height: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ЭКРАН 1 -->
+        <div class="screen active" id="screen1">
+            <div class="cat-emoji cat1">🐱</div>
+            <div class="cat-emoji cat2">😻</div>
+            <div class="bear">🧸</div>
+            <div class="sparkles">✨</div>
+            
+            <div class="heart">❤️</div>
+            <h1>Для моей <span class="name">Анюточки</span>...</h1>
+
+            <div class="message-box">
+                Ты - самая прекрасная<br>девушка на свете, <span class="name">Анют</span>! 💫
+            </div>
+
+            <div class="question">
+                <p>Прости меня, пожалуйста. Я был неправ и очень сожалею. Ты — самый светлый человек в моей жизни, <span class="name">Анюта</span>. Дашь мне шанс всё исправить?</p>
+                <div class="btn-container">
+                    <button class="btn" onclick="nextScreen()">Конечно, да! 🥰</button>
+                    <button class="btn no-btn" id="noBtn1" 
+                            onmouseover="escapeButton('noBtn1')"
+                            ontouchstart="escapeButton('noBtn1')"
+                            onclick="showNoMessage()">Нет 🙈</button>
+                </div>
+            </div>
+
+            <div class="no-message" id="noMessage1">
+                ❤️ Я знал, что ты выберешь "Да", <span class="name">Анют</span>! Нажми на правильную кнопку ❤️
+            </div>
+        </div>
+
+        <!-- ЭКРАН 2 -->
+        <div class="screen" id="screen2">
+            <div class="cat-emoji cat1">🐱</div>
+            <div class="cat-emoji cat2">😻</div>
+            <div class="bear">🧸</div>
+            <div class="sparkles">✨</div>
+            
+            <div class="message-box">
+                Твоя улыбка делает<br>мой день лучше, <span class="name">кися</span>! 🌟
+            </div>
+
+            <div class="question">
+                <p>Ура! Тогда ты согласна пойти со мной в Династию сегодня в 15:00, <span class="name">Анют</span>?</p>
+                <div class="btn-container">
+                    <button class="btn" onclick="finalScreen()">Да, с огромным удовольствием! 💖</button>
+                    <button class="btn no-btn" id="noBtn2"
+                            onmouseover="escapeButton('noBtn2')"
+                            ontouchstart="escapeButton('noBtn2')"
+                            onclick="showNoMessage()">Нет 🐾</button>
+                </div>
+            </div>
+
+            <div class="no-message" id="noMessage2">
+                ❤️ Я знал, что ты выберешь "Да", <span class="name">Анют</span>! Нажми на правичную кнопку ❤️
+            </div>
+        </div>
+
+        <!-- ЭКРАН 3 -->
+        <div class="screen" id="screen3">
+            <div class="cat-emoji cat1">🐱</div>
+            <div class="cat-emoji cat2">😻</div>
+            <div class="bear">🧸</div>
+            <div class="sparkles">✨</div>
+            
+            <div class="message-box">
+                Будь самой великолепной<br>и неотразимой сегодня! 👑<br>
+                <span style="font-size: 16px;">Я тебя обожаю, <span class="name">Анютка</span>!</span>
+            </div>
+
+            <h2>Я так счастлив! ❤️</h2>
+            <p>Жди меня, будь самой прекрасной, как обычно, моя <span class="name">кися</span>! 🐱</p>
+            
+            <div class="final-emoji">🥰🎉💕</div>
+        </div>
+    </div>
+
+    <script>
+        let currentScreen = 1;
+
+        function nextScreen() {
+            currentScreen++;
+            showCurrentScreen();
+        }
+
+        function finalScreen() {
+            currentScreen = 3;
+            showCurrentScreen();
+        }
+
+        function showCurrentScreen() {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            const currentScreenElement = document.getElementById('screen' + currentScreen);
+            if (currentScreenElement) {
+                currentScreenElement.classList.add('active');
+            }
+        }
+
+        function showNoMessage() {
+            const noMessage = document.getElementById('noMessage' + currentScreen);
+            if (noMessage) {
+                noMessage.style.display = 'block';
+                setTimeout(function() {
+                    noMessage.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        function escapeButton(buttonId) {
+            const button = document.getElementById(buttonId);
+            const container = button.closest('.btn-container');
+            
+            if (!button || !container) return;
+            
+            button.classList.add('escaping');
+            
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+            
+            const maxX = containerRect.width - buttonRect.width - 20;
+            const maxY = containerRect.height - buttonRect.height - 20;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            button.style.position = 'absolute';
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+            button.style.transform = 'none';
+            
+            setTimeout(() => {
+                button.classList.remove('escaping');
+            }, 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showCurrentScreen();
+        });
+
+        setInterval(function() {
+            const cats = document.querySelectorAll('.cat-emoji');
+            cats.forEach(function(cat) {
+                cat.style.transform = `translateY(${Math.random() * 10 - 5}px)`;
+            });
+        }, 2000);
+    </script>
+</body>
+</html>
